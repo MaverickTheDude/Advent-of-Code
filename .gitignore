@@ -1,5 +1,6 @@
 # brudnopis
 /brudnopis
+*.settings.xml
 
 # Prerequisites
 *.d
