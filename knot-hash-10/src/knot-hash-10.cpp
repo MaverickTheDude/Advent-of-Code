@@ -21,6 +21,7 @@ int main() {
 	string x = partB.dense_hash();
 	cout << "knot hash: " << x;
 #else
+	/* disk-defragmentation-14 a,b */
 	const string input("nbysizxe");
 	int used_squares = 0;
 	int COLS = 128;
