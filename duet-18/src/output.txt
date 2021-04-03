@@ -1,0 +1,41 @@
+function id: 1	register: i 	value: 31 
+function id: 1	register: a 	value: 1 
+function id: 3	register: p 	value: 17 
+function id: 6	register: p 	register: p 
+function id: 3	register: a 	value: 2 
+function id: 2	register: i 	value: -1 
+function id: 6	register: i 	value: -2 
+function id: 2	register: a 	value: -1 
+function id: 1	register: i 	value: 127 
+function id: 1	register: p 	value: 826 
+function id: 3	register: p 	value: 8505 
+function id: 4	register: p 	register: a 
+function id: 3	register: p 	value: 129749 
+function id: 2	register: p 	value: 12345 
+function id: 4	register: p 	register: a 
+function id: 1	register: b 	register: p 
+function id: 4	register: b 	value: 10000 
+function id: 0	register: b 	[x] 
+function id: 2	register: i 	value: -1 
+function id: 6	register: i 	value: -9 
+function id: 6	register: a 	value: 3 
+function id: 5	register: b 	[x] 
+function id: 6	register: b 	value: -1 
+function id: 1	register: f 	value: 0 
+function id: 1	register: i 	value: 126 
+function id: 5	register: a 	[x] 
+function id: 5	register: b 	[x] 
+function id: 1	register: p 	register: a 
+function id: 3	register: p 	value: -1 
+function id: 2	register: p 	register: b 
+function id: 6	register: p 	value: 4 
+function id: 0	register: a 	[x] 
+function id: 1	register: a 	register: b 
+function id: 6	value: 1 	value: 3 
+function id: 0	register: b 	[x] 
+function id: 1	register: f 	value: 1 
+function id: 2	register: i 	value: -1 
+function id: 6	register: i 	value: -11 
+function id: 0	register: a 	[x] 
+function id: 6	register: f 	value: -16 
+function id: 6	register: a 	value: -19 
