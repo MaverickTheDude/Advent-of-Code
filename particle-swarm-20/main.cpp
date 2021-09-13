@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <list>
+#include <map>
 #include <fstream>
 #include <regex>
 
@@ -8,10 +10,11 @@ using std::cout;
 using std::endl;
 
 const int Nparticles = 1000;
-const int Nruns = 5000;
+const int Nruns = 500;
 
 class Vector3d {
 public:
+friend bool operator<(const Vector3d&, const Vector3d&);
 friend class particle;
     Vector3d(const string& _vec_) {
         std::smatch wynik;
@@ -52,42 +55,63 @@ public:
     }
 
     int pos_mag() const { return position.magnitude(); }
+    Vector3d pos() const {return position; }
 
-protected:
+private:
     Vector3d position;
     Vector3d velocity;
     Vector3d acceleration;
 };
+
+bool operator<(const Vector3d& v1, const Vector3d& v2) {
+    if ( v1.magnitude() == v2.magnitude() ) {
+        if (v1.x == v2.x) {
+            return v1.y < v2.y ? true : false;
+        }
+        return v1.x < v2.x ? true : false;
+    }
+    return v1.magnitude() < v2.magnitude() ? true : false;
+}
 
 int main() {
     string line;
     std::ifstream myfile("input.txt");
     std::smatch wynik;
     std::regex wzorzec("(<-?[0-9]+,-?[0-9]+,-?[0-9]+>), v=(<-?[0-9]+,-?[0-9]+,-?[0-9]+>), a=(<-?[0-9]+,-?[0-9]+,-?[0-9]+>)");
-    std::vector<particle> frame;
-    frame.reserve(Nparticles);
+    std::list<particle> frame;
 
     while( getline(myfile, line) ) {
-std::regex_search(line, wynik, wzorzec);
-frame.emplace_back(wynik);
-}
+        std::regex_search(line, wynik, wzorzec);
+        frame.emplace_back(wynik);
+    }
 
-    /* simulate the system for Nruns iterations */
+    using list_iter = std::list<particle>::iterator;
+    using map_iter = std::map<Vector3d, std::vector<list_iter> >::iterator;
+
     for (int i = 0; i < Nruns; i++) {
+        /* map<position, location_in_list> */
+        std::map<Vector3d, std::vector<list_iter> > hitset;
+
+        /* create map of matching frames */
+        for (list_iter it = frame.begin(); it != frame.end(); it++)
+            hitset[it->pos()].push_back(it);    // if the vector for a key doesn't exist, it will be created automatically
+
+        /* remove matching frames */
+        for (map_iter it = hitset.begin(); it != hitset.end(); it++) {
+            const std::vector<list_iter>& indices = it->second; // iterators showing potentially doubled elements in frame-list
+            if (indices.size() > 1) {
+                for (const list_iter& idx : indices)
+                    frame.erase(idx);
+            }
+        }
+
+        /* update left-out frames */
         for (particle& p : frame)
             p.update();
+        std::cout << "particles left after " << i+1 << " cycles: " << frame.size() << std::endl;
     }
 
-    unsigned int min = frame[0].pos_mag();
-    int minId = 0;
-    for (int i = 1; i < Nparticles; i++) {
-        const unsigned int test_distance = frame[i].pos_mag();
-        if (test_distance < min) {
-            minId = i;
-            min = test_distance;
-        }
-    }
-    cout << "min = " << min << "; min id = " << minId << endl;
+
 
     std::cout << "done!" << endl;
     return 0;
