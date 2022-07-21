@@ -120,8 +120,8 @@ int main() {
 		current_line1 += next1;
 
 		if (next0 == 0 && next1 == 0)	/* deadlock */		break;
-		if (current_line0 < 0 || current_line0 > NCOMMANDS) break;
-		if (current_line1 < 0 || current_line1 > NCOMMANDS) break;
+		if (current_line0 < 0 || current_line0 > NCOMMANDS-1) break;
+		if (current_line1 < 0 || current_line1 > NCOMMANDS-1) break;
 	}
 
 	prog1.print_commands(outfile);
