@@ -10,6 +10,9 @@
 using std::cout;
 using std::endl;
 
+constexpr bool caseB = true; // false for case A
+constexpr int INITIAL_REG_A = caseB ? 1 : 0;
+
 // switch - case dla const char*
 /*https://hbfs.wordpress.com/2017/01/10/strings-in-c-switchcase-statements/*/
 uint64_t constexpr mix(char m, uint64_t s) {return ((s<<7) + ~(s>>3)) + ~m;      }
@@ -21,6 +24,8 @@ const int NCOMMANDS = 32; // hardcoded
 extern int executions;
 using reg_map = std::map<char, long long int>;
 using reg_queue = std::queue<long long int>;
+
+// int elideLoop(int line, program& prog);
 
 class argument {
 friend std::ostream& operator<<(std::ostream& os, const argument& obj);
@@ -69,6 +74,7 @@ private:
 };
 
 class program {
+	friend int main();
 public:
 	program(std::ifstream& file, int _id_ = 0);
 

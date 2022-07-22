@@ -1,7 +1,5 @@
 #include "project.hpp"
 
-// extern std::regex wzorzec;
-
 static std::regex wzorzec("([a-z]+) ([a-z1-9]) ?(-?[a-z0-9]+)?");
 
 argument::argument(std::string in_str) {
@@ -15,7 +13,7 @@ argument::argument(std::string in_str) {
 		return;
 	}
 
-	reg   = *in_str.c_str();
+	reg = *in_str.c_str();
 	bool number_is_first = (0 <= reg - '0' && reg - '0' <= 9);
 
 	/* argument is a value */
@@ -144,7 +142,7 @@ program::program(std::ifstream& file, int _id_) : id(_id_), co_q_ptr(nullptr) {
 		std::regex_search(line, wynik, wzorzec);
 		commands.emplace_back(wynik);
 	}
-	registers['a'] = 0;
+	registers['a'] = INITIAL_REG_A;
 }
 
 std::ostream& operator<<(std::ostream& os, const argument& obj)  {
