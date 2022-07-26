@@ -9,6 +9,7 @@ using std::cout;
 using std::endl;
 
 int maxBridgeStrength = 0;
+unsigned int maxBridgeLength = 0;
 std::vector<int> strongestBridge;
 const int Ncomponents = 57;
 
@@ -45,12 +46,14 @@ void connect(std::vector<int> bridge, setOfComponentsType componentsLeft) {
 		connect(bridgeCopy, possibleMatchesCopy);
 	}
 	int strenght = computeBridgeStrength(bridge);
-	if (strenght > maxBridgeStrength) {
+	bool longerBridge = (bridge.size() > maxBridgeLength);
+	bool strongerBridge = (bridge.size() == maxBridgeLength && strenght > maxBridgeStrength);
+	if (longerBridge || strongerBridge) {
+		maxBridgeLength = bridge.size();
 		maxBridgeStrength = strenght;
 		strongestBridge = bridge;
 		std::cout << "assigning new winner with strenght " << strenght << " and #elements: " << bridge.size() << endl;
 	}
-	// std::cout << "finished with #elements: " << componentsLeft.size() << endl;
 }
 
 int main() {
