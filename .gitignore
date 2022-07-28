@@ -1,6 +1,7 @@
 # brudnopis
 /brudnopis
 *.settings.xml
+.vscode/
 
 # Prerequisites
 *.d
